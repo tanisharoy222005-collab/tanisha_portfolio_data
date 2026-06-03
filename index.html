@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanisha Roy — AI Engineer & Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b10;
+    --surface: #0e1420;
+    --surface2: #141c2e;
+    --accent: #5bf5c0;
+    --accent2: #7b6ff0;
+    --accent3: #f5a65b;
+    --text: #e8edf5;
+    --muted: #6b7a99;
+    --border: rgba(91,245,192,0.12);
+    --glow: rgba(91,245,192,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,245,192,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,245,192,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(8,11,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(91,245,192,0.08); top: -100px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: rgba(123,111,240,0.08); bottom: -80px; left: 10%; }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  h1 .line2 {
+    display: block;
+    -webkit-text-stroke: 1px rgba(91,245,192,0.6);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.65s;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    box-shadow: 0 0 40px rgba(91,245,192,0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: 4rem;
+    bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .stat {
+    text-align: right;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 7rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: auto;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: var(--accent); }
+
+  .contact-icon {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-item:hover .contact-icon {
+    border-color: var(--accent);
+    background: var(--glow);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .skill-card:hover::before { transform: scaleX(1); }
+
+  .skill-card:hover {
+    border-color: rgba(91,245,192,0.25);
+    background: var(--surface2);
+    transform: translateY(-3px);
+  }
+
+  .skill-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(91,245,192,0.06);
+    border: 1px solid rgba(91,245,192,0.15);
+    border-radius: 2px;
+    color: var(--text);
+    letter-spacing: 0.03em;
+  }
+
+  /* EXPERIENCE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.25s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.4s; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.45rem;
+    top: 8px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-company {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .timeline-bullets li {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(91,245,192,0.04), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(91,245,192,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    background: rgba(245,166,91,0.1);
+    border: 1px solid rgba(245,166,91,0.25);
+    color: var(--accent3);
+    border-radius: 2px;
+    width: fit-content;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-accuracy {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .project-accuracy-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .stack-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.55rem;
+    background: rgba(123,111,240,0.08);
+    border: 1px solid rgba(123,111,240,0.2);
+    color: #a09ef5;
+    border-radius: 2px;
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+
+  .edu-card:hover {
+    border-color: rgba(91,245,192,0.2);
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-institution {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent3);
+  }
+
+  /* CERTIFICATIONS */
+  .cert-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent2);
+    border-radius: 0 4px 4px 0;
+    padding: 1.2rem 1.5rem;
+    transition: all 0.25s;
+  }
+
+  .cert-item:hover {
+    border-left-color: var(--accent);
+    background: var(--surface2);
+    transform: translateX(4px);
+  }
+
+  .cert-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-provider {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ACHIEVEMENTS */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .achievement-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.25s;
+  }
+
+  .achievement-item:hover {
+    border-color: rgba(91,245,192,0.2);
+    background: var(--surface2);
+  }
+
+  .achievement-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .achievement-text {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* AVAILABILITY BADGE */
+  .avail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(91,245,192,0.07);
+    border: 1px solid rgba(91,245,192,0.2);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .avail-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
+    50% { opacity: 0.4; box-shadow: none; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-stats { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Tanisha Roy</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+
+  <div class="hero-content">
+    <div class="avail-badge">
+      <span class="avail-dot"></span>
+      Available for Full-Time — July 2026
+    </div>
+    <div class="hero-tag">Data Scientist · AI Engineer · ML Researcher</div>
+    <h1>
+      Tanisha<br>
+      <span class="line2">Roy</span>
+    </h1>
+    <p class="hero-desc">
+      Final-year B.Tech specialising in AI and machine learning — published author achieving 99.98% classification accuracy, with end-to-end model deployment across three industry internships.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:roytanisha@gmail.com" class="btn btn-primary">Get in Touch →</a>
+      <a href="#projects" class="btn btn-outline">View Projects</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">99.98%</div>
+      <div class="stat-label">Classification Accuracy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3×</div>
+      <div class="stat-label">Industry Internships</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Research Publications</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>final-year B.Tech Data Scientist</strong> at Sikkim Manipal Institute of Technology, specialising in AI and machine learning. I've gained hands-on experience across three competitive industry and research internships spanning three Indian states.</p>
+      <p>Published sole author of a deep learning research paper on <strong>CNN–LSTM IoT Intrusion Detection</strong> achieving 99.98% classification accuracy, and co-author of an NLP study benchmarking language models — Naive Bayes, SVM, LSTM, and <strong>BERT fine-tuning</strong> — achieving 99.96% peak accuracy across 50,000+ records.</p>
+      <p>I work end-to-end — from raw data pipelines through model training to <strong>REST API and Vercel deployment</strong> — with practical MLOps experience in data versioning, model monitoring, and retraining pipelines. My language modelling work spans transformer fine-tuning, sequence classification, and LLM-framework integration via LangChain and the OpenAI API.</p>
+      <p>Proficient in <strong>Python, TensorFlow, PyTorch</strong>, the Azure technology stack (AI-900 certified), and GenAI frameworks including LangChain, HuggingFace Transformers, and the OpenAI API.</p>
+    </div>
+    <div id="contact">
+      <div class="contact-block">
+        <a href="tel:+918617875594" class="contact-item">
+          <span class="contact-icon">📞</span>
+          +91 8617875594
+        </a>
+        <a href="mailto:roytanisha@gmail.com" class="contact-item">
+          <span class="contact-icon">✉️</span>
+          roytanisha@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/tanisha-roy-1826a6391" target="_blank" class="contact-item">
+          <span class="contact-icon">🔗</span>
+          linkedin.com/in/tanisha-roy-1826a6391
+        </a>
+        <a href="https://github.com/tanisharoy222005-collab" target="_blank" class="contact-item">
+          <span class="contact-icon">⌨️</span>
+          github.com/tanisharoy222005-collab
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Tools & Technologies</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-category">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">ML / DL Frameworks</div>
+      <div class="skill-tags">
+        <span class="tag">TensorFlow</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Keras</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Data & Analysis</div>
+      <div class="skill-tags">
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Seaborn</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Cloud & Platforms</div>
+      <div class="skill-tags">
+        <span class="tag">Azure ML Studio</span>
+        <span class="tag">Azure App Service</span>
+        <span class="tag">Azure AI Services</span>
+        <span class="tag">Vercel</span>
+        <span class="tag">GitHub</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">GenAI & LLM</div>
+      <div class="skill-tags">
+        <span class="tag">LangChain</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">HuggingFace Transformers</span>
+        <span class="tag">NLP Pipelines</span>
+        <span class="tag">BERT Fine-tuning</span>
+        <span class="tag">Language Model Evaluation</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">Language Modelling</div>
+      <div class="skill-tags">
+        <span class="tag">Transformer Architecture</span>
+        <span class="tag">BERT / RoBERTa</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">Sequence Classification</span>
+        <span class="tag">Token Classification</span>
+        <span class="tag">Model Benchmarking</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">MLOps & Deployment</div>
+      <div class="skill-tags">
+        <span class="tag">REST API</span>
+        <span class="tag">Model Monitoring</span>
+        <span class="tag">Data Versioning</span>
+        <span class="tag">Retraining Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Specialisations</div>
+      <div class="skill-tags">
+        <span class="tag">Deep Learning</span>
+        <span class="tag">CNN–LSTM</span>
+        <span class="tag">Time-Series</span>
+        <span class="tag">IoT Security</span>
+        <span class="tag">Sentiment Analysis</span>
+        <span class="tag">Predictive Maintenance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <span class="timeline-company">NERIST — North Eastern Regional Institute of Science & Technology</span>
+        <span class="timeline-date">Jan 2026 – Jun 2026</span>
+      </div>
+      <div class="timeline-role">Research Intern — AI & Deep Learning · Arunachal Pradesh, India</div>
+      <ul class="timeline-bullets">
+        <li>Designed, developed, and deployed a CNN–LSTM hybrid deep learning model for IoT intrusion detection — achieving 99.98% classification accuracy across 6 attack categories on the NSL-KDD dataset (125,973 records).</li>
+        <li>Engineered end-to-end ML pipelines — from raw dataset ingestion and preprocessing to model training, hyperparameter tuning, and validation — with MLOps practices including dataset versioning via Git and experiment tracking.</li>
+        <li>Authored a research paper accepted for publication (2025); communicated findings to academic cross-functional teams.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <span class="timeline-company">MACKUT</span>
+        <span class="timeline-date">May 2025 – Jul 2025</span>
+      </div>
+      <div class="timeline-role">Data Science Intern — Predictive Analytics · West Bengal, India</div>
+      <ul class="timeline-bullets">
+        <li>Designed and deployed a predictive maintenance fault classifier on the NASA CMAPSS turbofan engine dataset (21,000+ engine cycle records) — model served via REST API and deployed as a web application on Vercel.</li>
+        <li>Built a full ML pipeline with multivariate time-series preprocessing, sliding-window feature engineering, and retraining triggers designed around RMSE drift thresholds.</li>
+        <li>Communicated results through structured reports and Power BI visualisations to cross-functional teams.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--accent3); box-shadow: 0 0 12px var(--accent3);"></div>
+      <div class="timeline-header">
+        <span class="timeline-company">Indian Oil Corporation Limited (IOCL) — Digboi Refinery</span>
+        <span class="timeline-date">May 2024 – Jul 2024</span>
+      </div>
+      <div class="timeline-role">Technical Intern — Industrial Data Analytics · Assam, India</div>
+      <ul class="timeline-bullets">
+        <li>Analysed operational process data across 15+ sensor streams at one of India's oldest and largest refineries — a safety-critical industrial environment with direct parallels to aerospace and power-generation monitoring systems.</li>
+        <li>Developed structured data reporting workflows and visualisation dashboards that translated raw sensor and process data into actionable engineering insights, supporting real-world deployment decisions for operational teams.</li>
+        <li>Gained firsthand exposure to large-scale industrial data systems and the constraints of deploying AI in critical infrastructure — informing a practical understanding of model reliability, safety margins, and stakeholder communication.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card" style="border-color: rgba(91,245,192,0.28); position: relative;">
+      <div style="position: absolute; top: 1.2rem; right: 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--accent); background: rgba(91,245,192,0.08); border: 1px solid rgba(91,245,192,0.2); padding: 0.2rem 0.55rem; border-radius: 2px;">AEROSPACE</div>
+      <div class="project-badge" style="background: rgba(91,245,192,0.1); border-color: rgba(91,245,192,0.3); color: var(--accent);">MACKUT Internship · 2025</div>
+      <div class="project-title">Predictive Maintenance Fault Classifier — NASA Turbofan</div>
+      <div class="project-desc">Trained LSTM and Random Forest algorithms on the NASA CMAPSS turbofan engine dataset (21,000+ engine cycle records) to predict Remaining Useful Life of aircraft engine components — directly addressing safety-critical maintenance challenges in aerospace. Model deployed as a live REST API endpoint with a Vercel web application front-end.</div>
+      <div class="project-accuracy">21K+</div>
+      <div class="project-accuracy-label">Engine cycle records · 4 CMAPSS sub-datasets · RMSE drift monitoring · REST API deployed</div>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">PyTorch</span>
+        <span class="stack-item">Scikit-learn</span>
+        <span class="stack-item">Pandas</span>
+        <span class="stack-item">Power BI</span>
+        <span class="stack-item">Vercel</span>
+        <span class="stack-item">REST API</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Research Paper · 2025</div>
+      <div class="project-title">CNN–LSTM IoT Intrusion Detection System</div>
+      <div class="project-desc">Architected a hybrid deep learning model fusing CNN and LSTM layers to capture spatial patterns and temporal dependencies in network traffic simultaneously — published as sole author during final year of undergraduate study, outperforming 4 baseline models.</div>
+      <div class="project-accuracy">99.98%</div>
+      <div class="project-accuracy-label">Classification Accuracy · NSL-KDD · 125,973 records</div>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">TensorFlow</span>
+        <span class="stack-item">PyTorch</span>
+        <span class="stack-item">NumPy</span>
+        <span class="stack-item">Scikit-learn</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge">Co-authored Research · 2024</div>
+      <div class="project-title">Sentiment Analysis & NLP Benchmarking Engine</div>
+      <div class="project-desc">Benchmarked 4 NLP sentiment classification approaches — Naive Bayes, SVM, LSTM, and BERT-based transformer fine-tuning — across multi-domain text corpora of 50,000+ records, demonstrating hands-on language model evaluation methodology.</div>
+      <div class="project-accuracy">99.96%</div>
+      <div class="project-accuracy-label">Peak Accuracy · BERT Fine-tuned · 50K+ records</div>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">HuggingFace Transformers</span>
+        <span class="stack-item">BERT fine-tuning</span>
+        <span class="stack-item">NLTK</span>
+        <span class="stack-item">Scikit-learn</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2022 – 2026</div>
+      <div class="edu-degree">B.Tech — Computer Science / Information Technology</div>
+      <div class="edu-institution">Sikkim Manipal Institute of Technology, Sikkim</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2022</div>
+      <div class="edu-degree">Higher Secondary (Class XII)</div>
+      <div class="edu-institution">West Bengal, India</div>
+      <div class="edu-score">82% Aggregate</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2020</div>
+      <div class="edu-degree">Secondary (Class X)</div>
+      <div class="edu-institution">West Bengal, India</div>
+      <div class="edu-score">91.2% Aggregate</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section>
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Certifications</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-name">Machine Learning A–Z: AI, Python & R</div>
+      <div class="cert-provider">Udemy · Supervised & unsupervised learning, feature engineering</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">Deep Learning — Neural Networks, AI & ChatGPT</div>
+      <div class="cert-provider">NPTEL IIT Madras / Udemy · ANN, CNN, RNN, LSTM, AutoEncoders</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">Python for Data Science and Machine Learning Bootcamp</div>
+      <div class="cert-provider">Udemy · Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">Natural Language Processing with Python</div>
+      <div class="cert-provider">Udemy · Text preprocessing, sentiment analysis, topic modelling</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">Microsoft Certified: Azure AI Fundamentals (AI-900)</div>
+      <div class="cert-provider">Microsoft · 2026 — Azure AI services, ML, CV, NLP, GenAI</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">Google Data Analytics Certificate</div>
+      <div class="cert-provider">Coursera · Data cleaning, analysis, and visualisation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section>
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Achievements</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="achievements-grid">
+    <div class="achievement-item">
+      <div class="achievement-icon">📄</div>
+      <div class="achievement-text">Sole-authored research paper on CNN–LSTM IoT Intrusion Detection (2025) — 99.98% accuracy, outperforming 4 baseline models, published during final year of undergraduate study.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon">🧪</div>
+      <div class="achievement-text">Co-authored Sentiment Analysis paper (2024) — 99.96% peak accuracy with BERT; contributed to NLP literature as a second-year undergraduate.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon">🏢</div>
+      <div class="achievement-text">Secured three competitive internships at nationally recognised organisations (IOCL, MACKUT, NERIST) spanning three Indian states across three consecutive years.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon">🚀</div>
+      <div class="achievement-text">Deployed ML model as a live REST API endpoint with a web application front-end on Vercel — bridging research-grade model development with real-world production deployment.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon">☁️</div>
+      <div class="achievement-text">Earned Microsoft Certified: Azure AI Fundamentals (AI-900) in 2026, validating hands-on knowledge of the Azure technology stack and AI services.</div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon">🎓</div>
+      <div class="achievement-text">Maintained 91.2% in Class X and 82% in Class XII, demonstrating consistent academic excellence throughout schooling.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Tanisha Roy</span>
+  <span class="footer-note">Available Full-Time from July 2026 · roytanisha@gmail.com</span>
+</footer>
+
+<script>
+  // Intersection observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .edu-card, .cert-item, .achievement-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
